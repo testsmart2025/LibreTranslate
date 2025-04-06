@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: libretranslate
+    env: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: Dockerfile
+    healthCheckPath: /
+    autoDeploy: false
+    envVars:
+      - key: LT_API_KEYS
+        value: mysecretkey
