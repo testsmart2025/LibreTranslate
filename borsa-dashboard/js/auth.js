@@ -1,6 +1,6 @@
 // BorsaBrain Authentication
 (function () {
-  const CREDENTIALS = {
+  var CREDENTIALS = {
     u: [104,97,122,101,109],
     p: [66,111,114,115,97,64,50,48,50,54]
   };
@@ -25,23 +25,23 @@
 
   function logout() {
     sessionStorage.removeItem('bb_session');
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
   }
 
-  // If on login page and already logged in, redirect
-  if (window.location.pathname.indexOf('login') !== -1 || window.location.pathname.endsWith('/')) {
-    if (isLoggedIn()) {
-      window.location.href = 'index.html';
-      return;
-    }
+  var path = window.location.pathname;
+  var isLoginPage = path.endsWith('/') || path.endsWith('/index.html') || path.endsWith('/index.htm') || path === '/';
+  var isDashboard = path.indexOf('dashboard') !== -1;
+
+  // On login page and already logged in -> go to dashboard
+  if (isLoginPage && isLoggedIn()) {
+    window.location.href = 'dashboard.html';
+    return;
   }
 
-  // If on dashboard and NOT logged in, redirect to login
-  if (window.location.pathname.indexOf('index') !== -1) {
-    if (!isLoggedIn()) {
-      window.location.href = 'login.html';
-      return;
-    }
+  // On dashboard and NOT logged in -> go to login
+  if (isDashboard && !isLoggedIn()) {
+    window.location.href = 'index.html';
+    return;
   }
 
   // Login form handler
@@ -55,7 +55,7 @@
 
       if (u === decode(CREDENTIALS.u) && p === decode(CREDENTIALS.p)) {
         setSession();
-        window.location.href = 'index.html';
+        window.location.href = 'dashboard.html';
       } else {
         errEl.textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
         errEl.style.animation = 'none';
@@ -65,7 +65,6 @@
     });
   }
 
-  // Expose logout
   window.bbLogout = logout;
   window.bbIsLoggedIn = isLoggedIn;
 })();
@@ -75,7 +74,6 @@ function togglePassword() {
   inp.type = inp.type === 'password' ? 'text' : 'password';
 }
 
-// Shake animation
 var style = document.createElement('style');
 style.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}';
 document.head.appendChild(style);
