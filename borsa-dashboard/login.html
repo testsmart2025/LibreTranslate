@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BorsaBrain — منصة تحليل الأسواق</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <!-- Animated background grid -->
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="login-layout">
+    <!-- Left: Branding -->
+    <div class="brand-side">
+      <div class="brand-content">
+        <div class="brand-logo">
+          <svg class="logo-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="12" fill="url(#logo-grad)"/>
+            <path d="M14 32 L18 24 L22 28 L28 18 L32 22 L36 14" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="24" cy="24" r="3" fill="#fff" opacity="0.3"/>
+            <path d="M20 34 Q24 30 28 34" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="48" y2="48">
+                <stop offset="0%" stop-color="#06b6d4"/>
+                <stop offset="100%" stop-color="#0891b2"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div>
+            <h1 class="brand-name">BorsaBrain</h1>
+            <span class="brand-by">by Mada Software & AI</span>
+          </div>
+        </div>
+
+        <h2 class="brand-headline">
+          <span class="highlight">تابع أسواقك</span> بذكاء من مكان واحد
+        </h2>
+        <p class="brand-desc">
+          أسعار لحظية، تحليل مزاج السوق، أخبار ذكية، وموجز يومي بالعربي — كل شي في dashboard واحدة سريعة وبدون تعقيد.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-pill">
+            <span class="fp-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 14 L5 8 L8 10 L11 4 L14 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            أسعار لحظية · Live Prices
+          </div>
+          <div class="feature-pill">
+            <span class="fp-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            موجز يومي · Daily Brief
+          </div>
+          <div class="feature-pill">
+            <span class="fp-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13V8M7 13V5M11 13V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            تحليل المزاج · Sentiment
+          </div>
+          <div class="feature-pill">
+            <span class="fp-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+            </span>
+            لوحة شاملة · Dashboard
+          </div>
+        </div>
+
+        <!-- Dashboard Preview -->
+        <div class="preview-window">
+          <div class="preview-bar">
+            <div class="preview-dots">
+              <span class="dot dot-r"></span>
+              <span class="dot dot-y"></span>
+              <span class="dot dot-g"></span>
+            </div>
+            <span class="preview-url">borsa.madanl.com / Dashboard</span>
+            <span class="preview-live">Live</span>
+          </div>
+          <div class="preview-body">
+            <div class="preview-stats">
+              <div class="ps-item"><span class="ps-label">BTC</span><span class="ps-val ps-up">$107,842</span></div>
+              <div class="ps-item"><span class="ps-label">ETH</span><span class="ps-val ps-up">$3,521</span></div>
+              <div class="ps-item"><span class="ps-label">المزاج</span><span class="ps-val ps-mood">صاعد</span></div>
+              <div class="ps-item"><span class="ps-label">الخوف/الطمع</span><span class="ps-val ps-fg">72</span></div>
+            </div>
+            <div class="preview-chart">
+              <svg viewBox="0 0 300 60" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,45 C20,40 40,50 60,35 C80,20 100,30 130,25 C160,20 180,28 200,15 C220,8 250,12 280,5 L300,3 L300,60 L0,60Z" fill="url(#chartGrad)"/>
+                <path d="M0,45 C20,40 40,50 60,35 C80,20 100,30 130,25 C160,20 180,28 200,15 C220,8 250,12 280,5 L300,3" fill="none" stroke="#06b6d4" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Login -->
+    <div class="login-side">
+      <div class="login-box">
+        <div class="login-header">
+          <svg class="login-logo" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="10" fill="url(#lg2)"/>
+            <path d="M12 28 L16 20 L20 24 L26 14 L30 18" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0891b2"/></linearGradient></defs>
+          </svg>
+          <h2>borsa.MadaNl.com</h2>
+          <p>سجل دخول لمتابعة الأسواق</p>
+        </div>
+
+        <form id="loginForm" class="login-form" autocomplete="off">
+          <div class="form-group">
+            <label for="username">اسم المستخدم</label>
+            <input type="text" id="username" name="username" placeholder="أدخل اسم المستخدم" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="password">كلمة المرور</label>
+            <div class="password-wrap">
+              <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required autocomplete="current-password">
+              <button type="button" class="toggle-pass" onclick="togglePassword()">
+                <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="loginError" class="login-error"></div>
+          <button type="submit" class="btn-login">
+            <span>تسجيل الدخول</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          <span>Powered by <strong>BorsaBrain</strong></span>
+          <span>&copy; Hazem Khodier — Mada Software & AI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    // Animated background
+    (function() {
+      const c = document.getElementById('bgCanvas');
+      const ctx = c.getContext('2d');
+      let w, h, particles = [];
+
+      function resize() {
+        w = c.width = window.innerWidth;
+        h = c.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      for (let i = 0; i < 50; i++) {
+        particles.push({
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+          r: Math.random() * 1.5 + 0.5
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = 'rgba(6, 182, 212, 0.15)';
+        particles.forEach(p => {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        particles.forEach((a, i) => {
+          particles.slice(i + 1).forEach(b => {
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.strokeStyle = `rgba(6, 182, 212, ${0.04 * (1 - dist / 120)})`;
+              ctx.lineWidth = 0.5;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          });
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+</body>
+</html>

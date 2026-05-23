@@ -1,0 +1,6 @@
+var CONFIG = {
+  COINGECKO_BASE: 'https://api.coingecko.com/api/v3',
+  ALPHA_VANTAGE_KEY: 'YOUR_ALPHA_VANTAGE_API_KEY',
+  GOOGLE_SHEET_CSV: '',
+  REFRESH_INTERVAL: 5 * 60 * 1000
+};
