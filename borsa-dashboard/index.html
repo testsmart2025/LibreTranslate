@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BorsaBrain - موجز الأسواق</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo">📊</span>
+      <span class="brand-name">BorsaBrain</span>
+    </div>
+    <div class="nav-meta">
+      <span id="lastUpdate" class="update-time"></span>
+      <button id="refreshBtn" class="btn-refresh" title="تحديث البيانات">&#x21bb;</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Market Mood Banner -->
+    <section id="moodBanner" class="mood-banner mood-neutral">
+      <div class="mood-content">
+        <span class="mood-icon" id="moodIcon">⏳</span>
+        <div>
+          <h2 class="mood-title" id="moodTitle">جاري تحميل المزاج العام...</h2>
+          <p class="mood-subtitle" id="moodSubtitle">يتم جلب البيانات من الأسواق</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Price Cards -->
+    <section class="cards-grid">
+      <div class="card card-crypto" id="cardBTC">
+        <div class="card-header">
+          <span class="card-icon">₿</span>
+          <span class="card-label">Bitcoin</span>
+          <span class="card-symbol">BTC</span>
+        </div>
+        <div class="card-price" id="btcPrice">--</div>
+        <div class="card-change" id="btcChange">--</div>
+        <div class="card-extra">
+          <span>أعلى 24س: <b id="btcHigh">--</b></span>
+          <span>أقل 24س: <b id="btcLow">--</b></span>
+        </div>
+      </div>
+
+      <div class="card card-crypto" id="cardETH">
+        <div class="card-header">
+          <span class="card-icon">⟠</span>
+          <span class="card-label">Ethereum</span>
+          <span class="card-symbol">ETH</span>
+        </div>
+        <div class="card-price" id="ethPrice">--</div>
+        <div class="card-change" id="ethChange">--</div>
+        <div class="card-extra">
+          <span>أعلى 24س: <b id="ethHigh">--</b></span>
+          <span>أقل 24س: <b id="ethLow">--</b></span>
+        </div>
+      </div>
+
+      <div class="card card-stock" id="cardAAPL">
+        <div class="card-header">
+          <span class="card-icon"></span>
+          <span class="card-label">Apple</span>
+          <span class="card-symbol">AAPL</span>
+        </div>
+        <div class="card-price" id="aaplPrice">--</div>
+        <div class="card-change" id="aaplChange">--</div>
+        <div class="card-extra">
+          <span>الافتتاح: <b id="aaplOpen">--</b></span>
+          <span>الإغلاق السابق: <b id="aaplPrev">--</b></span>
+        </div>
+      </div>
+
+      <div class="card card-stock" id="cardNVDA">
+        <div class="card-header">
+          <span class="card-icon">🟢</span>
+          <span class="card-label">NVIDIA</span>
+          <span class="card-symbol">NVDA</span>
+        </div>
+        <div class="card-price" id="nvdaPrice">--</div>
+        <div class="card-change" id="nvdaChange">--</div>
+        <div class="card-extra">
+          <span>الافتتاح: <b id="nvdaOpen">--</b></span>
+          <span>الإغلاق السابق: <b id="nvdaPrev">--</b></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts + News -->
+    <section class="panels">
+      <div class="panel panel-chart">
+        <div class="panel-header">
+          <h3>حركة الأسعار (7 أيام)</h3>
+          <div class="chart-tabs">
+            <button class="tab active" data-coin="bitcoin" onclick="switchChart('bitcoin', this)">BTC</button>
+            <button class="tab" data-coin="ethereum" onclick="switchChart('ethereum', this)">ETH</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="priceChart"></canvas>
+        </div>
+      </div>
+
+      <div class="panel panel-news">
+        <div class="panel-header">
+          <h3>آخر الأخبار</h3>
+          <span class="news-badge" id="newsCount">0</span>
+        </div>
+        <div id="newsList" class="news-list">
+          <div class="news-placeholder">جاري تحميل الأخبار...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Briefing -->
+    <section class="panel panel-briefing">
+      <div class="panel-header">
+        <h3>📋 موجز الذكاء الاصطناعي</h3>
+        <span class="briefing-time" id="briefingTime"></span>
+      </div>
+      <div id="briefingContent" class="briefing-content">
+        <p class="briefing-placeholder">الموجز اليومي يتم إنشاؤه الساعة 8 صباحاً بتوقيت أمستردام عبر n8n ويُرسل لتلغرام.</p>
+        <p class="briefing-note">اربط Google Sheets لعرض آخر موجز هنا تلقائياً.</p>
+      </div>
+    </section>
+
+    <!-- Fear & Greed -->
+    <section class="panels panels-bottom">
+      <div class="panel panel-fear">
+        <div class="panel-header"><h3>مؤشر الخوف والطمع</h3></div>
+        <div class="fear-gauge">
+          <div class="gauge-value" id="fearValue">--</div>
+          <div class="gauge-label" id="fearLabel">جاري التحميل</div>
+          <div class="gauge-bar">
+            <div class="gauge-fill" id="fearFill" style="width: 50%"></div>
+          </div>
+          <div class="gauge-scale">
+            <span>خوف شديد</span>
+            <span>طمع شديد</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-dominance">
+        <div class="panel-header"><h3>هيمنة السوق</h3></div>
+        <div class="dominance-grid" id="dominanceGrid">
+          <div class="dom-item">
+            <span class="dom-label">BTC</span>
+            <div class="dom-bar"><div class="dom-fill" id="btcDom" style="width:0%"></div></div>
+            <span class="dom-pct" id="btcDomPct">--</span>
+          </div>
+          <div class="dom-item">
+            <span class="dom-label">ETH</span>
+            <div class="dom-bar"><div class="dom-fill eth" id="ethDom" style="width:0%"></div></div>
+            <span class="dom-pct" id="ethDomPct">--</span>
+          </div>
+          <div class="dom-item">
+            <span class="dom-label">أخرى</span>
+            <div class="dom-bar"><div class="dom-fill other" id="otherDom" style="width:0%"></div></div>
+            <span class="dom-pct" id="otherDomPct">--</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>BorsaBrain &copy; 2026 &mdash; موجز معلوماتي للأخبار فقط وليس نصيحة مالية</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
